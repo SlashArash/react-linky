@@ -1,6 +1,6 @@
 {
   "name": "react-linky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React component to find links in text and turn them into html links",
   "keywords": [
     "react",
