@@ -18,7 +18,7 @@ const Parse: React.FC<Props> = ({ text, email, className }) => {
       const emailPart = email && part.match(emailRegex);
 
       let item: string | JSX.Element = part;
-      if (part.length > 0) {
+      if (part.length === 0) {
         item = " ";
       } else if (!!domainPart) {
         const withoutHTTP =
