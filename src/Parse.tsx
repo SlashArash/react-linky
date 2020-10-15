@@ -36,9 +36,11 @@ const Parse: React.FC<Props> = ({ text, email, className }) => {
           </a>
         );
       }
-      const lastChild = list[list.length - 1];
 
-      if (typeof lastChild === "string") {
+      const lastChild = list[list.length - 1];
+      if (list.length === 0) {
+        list.push(item);
+      } else if (typeof lastChild === "string") {
         if (typeof item === "string") {
           list[list.length - 1] = lastChild + " " + item;
         } else {
@@ -46,8 +48,14 @@ const Parse: React.FC<Props> = ({ text, email, className }) => {
           list.push(item);
         }
       } else {
-        list.push(item);
+        if (typeof item === "string") {
+          list.push(" " + item);
+        } else {
+          list.push(" ");
+          list.push(item);
+        }
       }
+
       return list;
     },
     []

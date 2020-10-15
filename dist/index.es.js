@@ -9,7 +9,7 @@ var Parse = function (_a) {
         var domainPart = part.match(domainRegex);
         var emailPart = email && part.match(emailRegex);
         var item = part;
-        if (part.length > 0) {
+        if (part.length === 0) {
             item = " ";
         }
         else if (!!domainPart) {
@@ -21,11 +21,26 @@ var Parse = function (_a) {
             item = (createElement("a", { href: "mailto:" + part, className: className }, part));
         }
         var lastChild = list[list.length - 1];
-        if (typeof item === "string" && typeof lastChild === "string") {
-            list[list.length - 1] = lastChild + " ";
+        if (list.length === 0) {
+            list.push(item);
+        }
+        else if (typeof lastChild === "string") {
+            if (typeof item === "string") {
+                list[list.length - 1] = lastChild + " " + item;
+            }
+            else {
+                list[list.length - 1] = lastChild + " ";
+                list.push(item);
+            }
         }
         else {
-            list.push(item);
+            if (typeof item === "string") {
+                list.push(" " + item);
+            }
+            else {
+                list.push(" ");
+                list.push(item);
+            }
         }
         return list;
     }, []);
