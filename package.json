@@ -4,8 +4,18 @@
   "description": "A React component to find links in text and turn them into html links",
   "keywords": [
     "react",
-    "linky"
+    "linky",
+    "component",
+    "hyperlink"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slasharash/react-linky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/slasharash/react-linky/issues"
+  },
+  "homepage": "https://github.com/slasharash/react-linky#readme",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
