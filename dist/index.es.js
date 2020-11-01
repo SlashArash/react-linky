@@ -3,7 +3,8 @@ import { memo, createElement, Fragment, isValidElement, cloneElement } from 'rea
 var domainRegex = /(?<![@#\-\w])(http(?:s)?:\/\/)?((?:[\w.-]+)(?:\.[\w.-]+))+([/\w?.\-=&:#]*)/gi;
 var emailRegex = /(([a-zA-Z0-9._-]+)@([\w.-]+))/gi;
 var Parse = function (_a) {
-    var text = _a.text, email = _a.email, className = _a.className;
+    var className = _a.className, email = _a.email, noopener = _a.noopener, noreferrer = _a.noreferrer, text = _a.text;
+    var rel = "" + (noopener ? "noopener" : "") + (noreferrer ? " noreferrer" : "");
     var textList = text.split(" ");
     var contents = textList.reduce(function (list, part) {
         var domainPart = part.match(domainRegex);
@@ -15,10 +16,10 @@ var Parse = function (_a) {
         else if (!!domainPart) {
             var withoutHTTP = part.indexOf("https://") === -1 || part.indexOf("http://") === -1;
             var safeURL = withoutHTTP ? "http://" + part : part;
-            item = (createElement("a", { href: safeURL, className: className }, part));
+            item = (createElement("a", { href: safeURL, className: className, rel: rel }, part));
         }
         else if (!!emailPart) {
-            item = (createElement("a", { href: "mailto:" + part, className: className }, part));
+            item = (createElement("a", { href: "mailto:" + part, className: className, rel: rel }, part));
         }
         var lastChild = list[list.length - 1];
         if (list.length === 0) {
@@ -49,9 +50,9 @@ var Parse = function (_a) {
 var Parse$1 = memo(Parse);
 
 var Linky = function (_a) {
-    var children = _a.children, className = _a.className, _b = _a.email, email = _b === void 0 ? true : _b;
+    var children = _a.children, className = _a.className, _b = _a.email, email = _b === void 0 ? true : _b, _c = _a.noopener, noopener = _c === void 0 ? true : _c, _d = _a.noreferrer, noreferrer = _d === void 0 ? true : _d;
     if (typeof children === "string") {
-        return createElement(Parse$1, { email: email, className: className, text: children });
+        return (createElement(Parse$1, { email: email, className: className, noopener: noopener, noreferrer: noreferrer, text: children }));
     }
     else if (isValidElement(children) &&
         children.type !== "a" &&
