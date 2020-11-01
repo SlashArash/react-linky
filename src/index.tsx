@@ -5,11 +5,27 @@ import Parse from "./Parse";
 export type LinkyProps = {
   className?: string;
   email?: boolean;
+  noopener?: boolean;
+  noreferrer?: boolean;
 };
 
-const Linky: React.FC<LinkyProps> = ({ children, className, email = true }) => {
+const Linky: React.FC<LinkyProps> = ({
+  children,
+  className,
+  email = true,
+  noopener = true,
+  noreferrer = true,
+}) => {
   if (typeof children === "string") {
-    return <Parse email={email} className={className} text={children} />;
+    return (
+      <Parse
+        email={email}
+        className={className}
+        noopener={noopener}
+        noreferrer={noreferrer}
+        text={children}
+      />
+    );
   } else if (
     React.isValidElement(children) &&
     children.type !== "a" &&

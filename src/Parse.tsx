@@ -4,12 +4,21 @@ const domainRegex = /(?<![@#\-\w])(http(?:s)?:\/\/)?((?:[\w.-]+)(?:\.[\w.-]+))+(
 const emailRegex = /(([a-zA-Z0-9._-]+)@([\w.-]+))/gi;
 
 type Props = {
-  text: string;
-  email?: boolean;
   className?: string;
+  email?: boolean;
+  noopener?: boolean;
+  noreferrer?: boolean;
+  text: string;
 };
 
-const Parse: React.FC<Props> = ({ text, email, className }) => {
+const Parse: React.FC<Props> = ({
+  className,
+  email,
+  noopener,
+  noreferrer,
+  text,
+}) => {
+  const rel = `${noopener ? "noopener" : ""}${noreferrer ? " noreferrer" : ""}`;
   const textList = text.split(" ");
 
   const contents = textList.reduce(
@@ -25,13 +34,13 @@ const Parse: React.FC<Props> = ({ text, email, className }) => {
           part.indexOf("https://") === -1 || part.indexOf("http://") === -1;
         const safeURL = withoutHTTP ? `http://${part}` : part;
         item = (
-          <a href={safeURL} className={className}>
+          <a href={safeURL} className={className} rel={rel}>
             {part}
           </a>
         );
       } else if (!!emailPart) {
         item = (
-          <a href={`mailto:${part}`} className={className}>
+          <a href={`mailto:${part}`} className={className} rel={rel}>
             {part}
           </a>
         );
