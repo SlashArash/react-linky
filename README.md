@@ -8,8 +8,7 @@ A minimal and tiny React component to find links in text and to turn them into H
 
 You can try a live demo [here](https://codesandbox.io/s/react-linky-1kq1w).
 
-<img alt="react-linky" src="assets/react-linky-demo.gif
-" />
+<img alt="react-linky" src="https://raw.githubusercontent.com/SlashArash/react-linky/master/assets/react-linky-demo.gif" />
 
 ## Installation
 
