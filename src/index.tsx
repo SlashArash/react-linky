@@ -7,11 +7,14 @@ export type LinkyProps = {
   email?: boolean;
   noopener?: boolean;
   noreferrer?: boolean;
+  children: any;
+  target?: "_self" | "_blank" | "_parent" | "_top";
 };
 
 const Linky: React.FC<LinkyProps> = ({
   children,
   className,
+  target = "_self",
   email = true,
   noopener = true,
   noreferrer = true,
@@ -24,6 +27,7 @@ const Linky: React.FC<LinkyProps> = ({
         noopener={noopener}
         noreferrer={noreferrer}
         text={children}
+        target={target}
       />
     );
   } else if (
@@ -35,7 +39,7 @@ const Linky: React.FC<LinkyProps> = ({
       children,
       undefined,
       <Linky email={email} className={className}>
-        {children.props.children}
+        {(children as any).props.children}
       </Linky>
     );
   } else if (Array.isArray(children)) {
