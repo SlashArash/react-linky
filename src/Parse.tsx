@@ -9,6 +9,7 @@ type Props = {
   noopener?: boolean;
   noreferrer?: boolean;
   text: string;
+  target: "_self" | "_blank" | "_parent" | "_top";
 };
 
 const Parse: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Parse: React.FC<Props> = ({
   noopener,
   noreferrer,
   text,
+  target
 }) => {
   const rel = `${noopener ? "noopener" : ""}${noreferrer ? " noreferrer" : ""}`;
   const textList = text.split(" ");
@@ -31,10 +33,10 @@ const Parse: React.FC<Props> = ({
         item = " ";
       } else if (!!domainPart) {
         const withoutHTTP =
-          part.indexOf("https://") === -1 || part.indexOf("http://") === -1;
+          part.indexOf("https://") === -1 && part.indexOf("http://") === -1;
         const safeURL = withoutHTTP ? `http://${part}` : part;
         item = (
-          <a href={safeURL} className={className} rel={rel}>
+          <a href={safeURL} className={className} rel={rel} target={target}>
             {part}
           </a>
         );
